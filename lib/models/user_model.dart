@@ -39,6 +39,6 @@ class User {
 
   @override
   String toString() {
-    return "Id: $id,\nNumber: $number,\nName: $name,\nBirth: $birth,\nAddress: $address,\nPassport: $passport";
+    return "Id: $id \nNumber: $number \nName: $name \nBirth: $birth \nAddress: $address \nPassport: $passport";
   }
 }
