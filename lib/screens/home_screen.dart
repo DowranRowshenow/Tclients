@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tclients/components/menu_icon_button.dart';
+import 'package:flutter/services.dart';
 import 'package:tclients/components/user_card.dart';
 import 'package:tclients/components/search_field.dart';
 
@@ -19,6 +19,14 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   String count = "0";
   List<User> users = [];
+  static const platform = MethodChannel('samples.flutter.dev/battery');
+
+  @override
+  void initState() async {
+    super.initState();
+    print("Requesting");
+    await _listenCalls();
+  }
 
   bool isNumeric(String str) {
     // ignore: no_leading_underscores_for_local_identifiers
@@ -39,12 +47,22 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  Future<void> _listenCalls() async {
+    try {
+      final result = await platform.invokeMethod('listenCalls');
+      print("Finished: $result");
+    } on PlatformException catch (e) {
+      print("Failed: '${e.message}'.");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text(appNameUpper),
+        centerTitle: true,
         elevation: 0,
         actions: [
           count != "0"
@@ -60,7 +78,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      drawer: const Drawer(),
       body: Container(
         color: const Color.fromARGB(255, 240, 240, 240),
         width: double.infinity,

@@ -45,11 +45,11 @@ class DetailScreen extends StatelessWidget {
               value: user.name,
             ),
             PropertyCard(
-              property: "Öý Salgysy",
+              property: "Doglan senesi we ýeri",
               value: user.birth,
             ),
             PropertyCard(
-              property: "Doglan senesi we ýeri",
+              property: "Öý Salgysy",
               value: user.address,
             ),
             PropertyCard(
