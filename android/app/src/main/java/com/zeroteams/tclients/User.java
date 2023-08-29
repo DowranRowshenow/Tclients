@@ -51,6 +51,6 @@ public class User {
     }
     
     public static String userToString() {
-        return String.format("Id: %d \nNumber: %s \nName: %s \nBirth: %s \nAddress: %s \nPassport: %s", id, number, name, birth, address, passport);
+        return String.format("Number: %s \nName: %s \nBirth: %s \nAddress: %s \nPassport: %s", number, name, birth, address, passport);
     }
 }

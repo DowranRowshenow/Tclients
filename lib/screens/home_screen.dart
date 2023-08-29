@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tclients/components/user_card.dart';
-import 'package:tclients/components/search_field.dart';
 
+import 'filter_screen.dart';
+import '../components/detail_card.dart';
+import '../components/search_field.dart';
 import '../../constants.dart';
 import '../../helpers/database.dart';
 import '../../models/user_model.dart';
@@ -17,14 +18,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String count = "0";
-  List<User> users = [];
+  User user = User.defaultUser();
   static const platform = MethodChannel('samples.flutter.dev/battery');
 
   @override
-  void initState() async {
+  void initState() {
     super.initState();
-    print("Requesting");
+    print("Initializing Listener Service");
+    initListener();
+    print("Initializing Listener Service Complete");
+  }
+
+  void initListener() async {
     await _listenCalls();
   }
 
@@ -35,10 +40,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _incrementCounter() async {
-    if (isNumeric(searchController.text)) {
-      final map = await DBHelper().searhByPhone(searchController.text);
-      count = "${map["count"]}";
-      users = map["users"];
+    if (isNumeric(numberController.text)) {
+      user = await DBHelper().getUser(numberController.text);
       setState(() {});
     } else {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -63,50 +66,46 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text(appNameUpper),
         centerTitle: true,
-        elevation: 0,
+        elevation: elevation,
         actions: [
-          count != "0"
-              ? Center(child: Text(count, style: const TextStyle(fontSize: 16)))
-              : Container(),
-          SizedBox(width: getProportionateScreenWidth(20))
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const FilterScreen()),
+              );
+            },
+            icon: const Icon(Icons.sort),
+            splashRadius: splashRadius,
+          ),
+          SizedBox(width: getProportionateScreenWidth(5)),
         ],
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(60),
           child: Container(
             margin: const EdgeInsets.fromLTRB(20, 0, 20, 10),
-            child: const SearchField(),
+            child: SearchField(
+              height: 50,
+              length: 11,
+              type: TextInputType.phone,
+              hint: "Telefon Belgisi",
+              controller: numberController,
+            ),
           ),
         ),
       ),
       body: Container(
-        color: const Color.fromARGB(255, 240, 240, 240),
+        color: bgColor,
         width: double.infinity,
         height: double.infinity,
         padding: const EdgeInsets.fromLTRB(margin, 0, margin, 0),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(height: getProportionateScreenHeight(10)),
-              /*
-              Row(
-                children: [
-                  Text(
-                    " Jemi: $count",
-                    style: const TextStyle(fontSize: 18),
-                  ),
-                ],
-              ),
-              */
-              ...List.generate(users.length, (index) {
-                return UserCard(user: users[index]);
-              }),
-              SizedBox(height: getProportionateScreenHeight(20))
-            ],
-          ),
-        ),
+        child: user.name != "name"
+            ? SingleChildScrollView(child: DetailCard(user: user))
+            : const Center(child: Text("GÖZLEGE BAŞLA")),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
+        elevation: elevation,
         child: const Icon(Icons.play_arrow),
       ),
     );

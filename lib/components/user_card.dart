@@ -17,7 +17,7 @@ class UserCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RippleContainer(
-      margin: const EdgeInsets.only(top: 15),
+      margin: const EdgeInsets.only(top: 5),
       onTap: () {
         Navigator.push(
           context,
@@ -47,7 +47,7 @@ class UserCard extends StatelessWidget {
               ),
             ),
             SizedBox(
-              width: getProportionateScreenWidth(300),
+              width: getProportionateScreenWidth(295),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,

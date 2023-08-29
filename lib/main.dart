@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'constants.dart';
+import 'helpers/storage.dart';
 import 'components/scroll_behavior.dart';
-import 'helpers/database.dart';
 import 'screens/home_screen.dart';
+import 'screens/welcome_screen.dart';
+
+String token = "";
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await DBHelper().initDB();
+  token = await Storage().loadToken();
   runApp(const MyApp());
 }
 
@@ -21,11 +25,11 @@ class MyApp extends StatelessWidget {
     ]);
 
     return MaterialApp(
-      title: 'TClients Mobile',
+      title: appName,
       theme: ThemeData(),
       //darkTheme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
-      home: const HomeScreen(),
+      home: token == password ? const HomeScreen() : const WelcomeScreen(),
       builder: (context, child) {
         return ScrollConfiguration(
           behavior: GlowlessScrollBehavior(),
