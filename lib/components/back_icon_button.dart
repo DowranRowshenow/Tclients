@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:tclients/constants.dart';
+import '../constants.dart';
 
 class BackIconButton extends StatelessWidget {
   const BackIconButton({Key? key}) : super(key: key);

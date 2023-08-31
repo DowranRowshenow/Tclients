@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tclients/components/back_icon_button.dart';
-import 'package:tclients/constants.dart';
 
+import '../components/back_icon_button.dart';
+import '../constants.dart';
 import '../components/user_card.dart';
 import '../models/user_model.dart';
 import '../size_config.dart';
@@ -25,26 +25,28 @@ class ListScreen extends StatelessWidget {
         centerTitle: true,
         leading: const BackIconButton(),
         actions: [
-          count != "0"
-              ? Center(child: Text(count, style: const TextStyle(fontSize: 16)))
-              : Container(),
+          Center(child: Text(count, style: const TextStyle(fontSize: 16))),
           SizedBox(width: getProportionateScreenWidth(20)),
         ],
       ),
       body: Container(
+        width: double.infinity,
+        height: double.infinity,
         padding: const EdgeInsets.fromLTRB(margin, 0, margin, 0),
         color: bgColor,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(height: getProportionateScreenHeight(10)),
-              ...List.generate(users.length, (index) {
-                return UserCard(user: users[index]);
-              }),
-              SizedBox(height: getProportionateScreenHeight(10)),
-            ],
-          ),
-        ),
+        child: users == []
+            ? const Center(child: Text("Netije Ýok!"))
+            : SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(height: getProportionateScreenHeight(10)),
+                    ...List.generate(users.length, (index) {
+                      return UserCard(user: users[index]);
+                    }),
+                    SizedBox(height: getProportionateScreenHeight(10)),
+                  ],
+                ),
+              ),
       ),
     );
   }

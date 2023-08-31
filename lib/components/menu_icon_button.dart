@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:tclients/constants.dart';
+import '../constants.dart';
 
 class MenuIconButton extends StatelessWidget {
   const MenuIconButton({Key? key}) : super(key: key);

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tclients/components/ripple_container.dart';
-import 'package:tclients/constants.dart';
-import 'package:tclients/models/user_model.dart';
-import 'package:tclients/screens/detail_screen.dart';
 
+import 'ripple_container.dart';
+import '../constants.dart';
+import '../models/user_model.dart';
+import '../screens/detail_screen.dart';
 import '../size_config.dart';
 
 class UserCard extends StatelessWidget {
