@@ -91,6 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
+          leading: Container(),
           title: const Text(appNameUpper),
           centerTitle: true,
           elevation: elevation,

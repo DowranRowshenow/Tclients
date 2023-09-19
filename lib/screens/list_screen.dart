@@ -34,7 +34,7 @@ class ListScreen extends StatelessWidget {
         height: double.infinity,
         padding: const EdgeInsets.fromLTRB(margin, 0, margin, 0),
         color: bgColor,
-        child: users == []
+        child: users.isEmpty
             ? const Center(child: Text("Netije Ýok!"))
             : SingleChildScrollView(
                 child: Column(
